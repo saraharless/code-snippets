@@ -17,6 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function (req, res) {
   res.render('index');
 })
+
+app.get('/create', function (req, res) {
+  res.render('create');
+})
+
 // app.get('/snippets', function(req, res) {
 //   models.User.findAll()
 //     .then(function(users) {
@@ -79,17 +84,16 @@ app.listen(3000, function() {
 })
 
 
+process.on('SIGINT', function() {
+  console.log("\nshutting down");
+  mongoose.connection.close(function () {
+    console.log('Mongoose default connection disconnected on app termination');
+    process.exit(0);
+  });
+});
+
+
 //////////////////////////////////////////////////////
-// To Do:
-// a title
-// a body (the code)
-// optional notes
-// a language
-// tags -- that is, user-defined words or phrases that classify the code, like "authentication", "front-end", "middleware", or "database".
-// Your application must:
-//
-// Tests are optional.
-//
 // have registration and login
 // allow you to create a snippet
 // allow you to see a list of all your snippets
